@@ -171,23 +171,32 @@ def filter_cat_features(dataframe):
     return dataframe
 
 
-def encode_features(dataframe, num_feats):
-    features = ['Exter Qual', 'Exter Cond', 'Bsmt Qual', 'Bsmt Cond', 'Bsmt Exposure',
-                'BsmtFin Type 1', 'BsmtFin Type 2', 'Heating QC', 'Kitchen Qual', 'Garage Finish']
-
-    num_feats.extend(features)
-    cat_features, _, _ = split_features(dataframe)
-    dummied_cat_features = pd.get_dummies(dataframe[cat_features])
+def encode_features(dataframe, num_feats, cat_feats):
+    dummied_cat_features = pd.get_dummies(dataframe[cat_feats])
     encoded_df = pd.concat([dataframe[num_feats], dummied_cat_features], axis=1)
     return encoded_df
 
 
-if __name__ == '__main__':
-    df = pd.read_csv('../data/AmesHousing.txt', sep='\t', index_col=0)
+def main(data_path):
+    df = pd.read_csv(data_path, sep='\t', index_col=0)
     df = data_cleansing(df)
     df = filter_num_features(df)
+
     value_num_features = corr_analysis(df)
     num_features = list(value_num_features)
+
     df = filter_cat_features(df)
-    df = encode_features(df, num_features)
+
+    features = ['Exter Qual', 'Exter Cond', 'Bsmt Qual', 'Bsmt Cond', 'Bsmt Exposure',
+                'BsmtFin Type 1', 'BsmtFin Type 2', 'Heating QC', 'Kitchen Qual', 'Garage Finish']
+
+    num_features.extend(features)
+    cat_features, _, _ = split_features(df)
+
+    df = encode_features(df, num_features, cat_features)
     df.to_csv('../data/clean_data.csv', index=False)
+
+
+if __name__ == '__main__':
+    data_path = str(input())
+    main(data_path)
