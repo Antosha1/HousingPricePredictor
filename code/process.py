@@ -1,4 +1,4 @@
-import mylib
+from mylib import model
 import argparse
 import pickle
 import numpy as np
@@ -15,7 +15,7 @@ parser.add_argument('--test', action='store_true',
 args = parser.parse_args()
 
 if args.train:
-    model = mylib.train(args.i[0])
+    model = model.train(args.i[0])
 
     pkl_filename = "../models/model.pkl"
     with open(pkl_filename, 'wb') as file:
@@ -24,7 +24,7 @@ elif args.test:
     with open(args.m[0], 'rb') as file:
         model = pickle.load(file)
 
-    predictions = mylib.test(model, args.i[0])
+    predictions = model.test(model, args.i[0])
     print(predictions)
 
     np.savetxt('../models/test.txt', predictions, newline=' ')
