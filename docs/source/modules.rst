@@ -1,7 +1,7 @@
-code
-====
+mylib
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   statemachine
+   mylib
