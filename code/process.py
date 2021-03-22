@@ -17,7 +17,7 @@ args = parser.parse_args()
 if args.train:
     model = mylib.train(args.i[0])
 
-    pkl_filename = "models/model.pkl"
+    pkl_filename = "../models/model.pkl"
     with open(pkl_filename, 'wb') as file:
         pickle.dump(model, file)
 elif args.test:
@@ -27,4 +27,4 @@ elif args.test:
     predictions = mylib.test(model, args.i[0])
     print(predictions)
 
-    np.savetxt('test.txt', predictions, newline=' ')
+    np.savetxt('../models/test.txt', predictions, newline=' ')
