@@ -12,17 +12,17 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../code/'))
+sys.path.insert(0, os.path.abspath('../../'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'documentation'
+project = 'House Price forecasting'
 copyright = '2021, Anton Sotnikov'
 author = 'Anton Sotnikov'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -40,6 +40,7 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+autodoc_mock_imports = ['numpy', 'sklearn', 'pandas', 'matplotlib', 'seaborn', 'scipy']
 
 # -- Options for HTML output -------------------------------------------------
 
