@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description='Test model.')
 parser.add_argument('-i', type=str, nargs='+',
                     help='path to the input file with data')
 parser.add_argument('-m', type=str, nargs='+',
-                    help='path to the trained model')
+                    help='path to trained model')
 
 args = parser.parse_args()
 
