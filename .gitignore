@@ -1,4 +1,8 @@
 hw1/docs/build
 notebooks/.ipynb_checkpoints
 *.pyc
+<<<<<<< HEAD
+.ipynb_checkpoints
+=======
 .idea
+>>>>>>> release/v.1.0.0
