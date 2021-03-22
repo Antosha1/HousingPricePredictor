@@ -12,6 +12,13 @@ warnings.filterwarnings("ignore")
 
 
 def data_preprocessing(data_path):
+    """
+    Provide data preprocessing contains split into train/test,
+    usage of normalization and a target's box-cox transformation.
+
+    :param data_path: a path to data
+    :return: train/test splitted dataframes and optimal lambda param for box-cox transformation
+    """
     df = pd.read_csv(data_path)
     y = df['SalePrice']
     X = df.drop(columns=['SalePrice'])
@@ -35,6 +42,12 @@ def data_preprocessing(data_path):
 
 
 def train(data_path):
+    """
+    Train Ridge regression model.
+
+    :param data_path: a path to data
+    :return: a trained model
+    """
     X_train, y_train, _, _, _ = data_preprocessing(data_path)
     model = Ridge(alpha=31.1).fit(X_train, y_train)
 
@@ -42,6 +55,13 @@ def train(data_path):
 
 
 def test(model, data_path):
+    """
+    Provide test of trained model
+
+    :param model: a trained model
+    :param data_path: a path to data
+    :return: list of predicted prices
+    """
     _, _, X_test, y_test, lmbda = data_preprocessing(data_path)
     preds = inv_boxcox(model.predict(X_test), lmbda)
 

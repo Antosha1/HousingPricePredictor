@@ -40,6 +40,12 @@ cat_dict4 = {
 
 
 def get_nan_features(dataframe):
+    """
+    Get features in dataset which contain nan values.
+
+    :param dataframe: source dataframe
+    :return: a list of strings features
+    """
     features = {}
     for feature in list(dataframe):
         nans = dataframe[feature].isna().sum()
@@ -49,6 +55,12 @@ def get_nan_features(dataframe):
 
 
 def split_features(dataframe):
+    """
+    Split features into three groups selecting by data type: object, int or float.
+
+    :param dataframe: source dataframe
+    :return: three lists of features grouping by their data types
+    """
     cat_df = dataframe.select_dtypes(include=['object'])
     cat_feats = list(cat_df)
     float_df = dataframe.select_dtypes(include=['float64'])
@@ -60,6 +72,12 @@ def split_features(dataframe):
 
 
 def plot_num_features_pairplots(dataframe):
+    """
+    Plot the joint distributions of each pair of numerical features.
+
+    :param dataframe: source dataframe
+    :return:
+    """
     cat_features, _, _ = split_features(dataframe)
     frame = dataframe.drop(columns=cat_features)
 
@@ -70,6 +88,14 @@ def plot_num_features_pairplots(dataframe):
 
 
 def plot_corr(dataframe, features, threshold=0.3):
+    """
+    Plot the correlation matrix of each pair of numerical features.
+
+    :param dataframe: source dataframe
+    :param features: a list of string features
+    :param threshold: threshold for displaying the correlation value in the matrix
+    :return:
+    """
     corr = dataframe[features].corr()
 
     plt.figure(figsize=(15, 15))
@@ -80,6 +106,13 @@ def plot_corr(dataframe, features, threshold=0.3):
 
 
 def plot_cat_features_countplots(dataframe):
+    """
+    builds histograms of the distribution of the number of
+     elements in each category of each categorical feature.
+
+    :param dataframe: source dataframe
+    :return:
+    """
     cat_features, _, _ = split_features(dataframe)
     fig, axes = plt.subplots(round(dataframe[cat_features].shape[1] / 3), 3, figsize=(12, 30))
 
@@ -92,6 +125,13 @@ def plot_cat_features_countplots(dataframe):
 
 
 def data_cleansing(dataframe):
+    """
+    Delete features with high percent of nan values. Also fill nan values
+    with appropriate values.
+
+    :param dataframe: source dataframe
+    :return: a dataframe with less number of columns and filled nan values
+    """
     dataframe.drop(columns=['Alley', 'Fence', 'Misc Feature', 'Pool QC', 'Fireplace Qu', 'PID'], inplace=True)
     features = ['Bsmt Qual', 'Bsmt Cond', 'Bsmt Exposure', 'BsmtFin Type 1', 'BsmtFin Type 2',
                 'Garage Type', 'Garage Finish', 'Garage Qual', 'Garage Cond']
@@ -117,6 +157,12 @@ def data_cleansing(dataframe):
 
 
 def filter_num_features(dataframe):
+    """
+    Filter numerical features based on exploratory data analysis.
+
+    :param dataframe: source dataframe
+    :return: a dataframe with less number of columns and filtered values
+    """
 
     dataframe = dataframe[dataframe['SalePrice'] < 5e5]
     dataframe = dataframe[dataframe['Lot Frontage'] < 300]
@@ -146,6 +192,12 @@ def filter_num_features(dataframe):
 
 
 def corr_analysis(dataframe):
+    """
+    Selects the most important features from the point of view of correlation.
+
+    :param dataframe: source dataframe
+    :return: a list of most valuable string features
+    """
     _, float_features, int_features = split_features(dataframe)
     num_feats = int_features + float_features + ['SalePrice']
     valuable_features = dataframe[num_feats].corr().nlargest(11, 'SalePrice').index
@@ -153,6 +205,12 @@ def corr_analysis(dataframe):
 
 
 def filter_cat_features(dataframe):
+    """
+    Filter categorical features based on EDA.
+
+    :param dataframe: source dataframe
+    :return: a dataframe with less number of columns and encoded into ranks features
+    """
     dataframe.drop(columns=['Street', 'Utilities', 'Land Slope', 'Condition 1', 'Condition 2', 'Roof Matl',
                             'Heating', 'Electrical', 'Functional', 'Garage Qual', 'Garage Cond', 'Sale Type'],
                    inplace=True)
@@ -172,6 +230,14 @@ def filter_cat_features(dataframe):
 
 
 def encode_features(dataframe, num_feats, cat_feats):
+    """
+    Provide dummy encoding of categorical features
+
+    :param dataframe: source dataframe
+    :param num_feats: a list of string numerical features
+    :param cat_feats: a list of string categorical features
+    :return: a dataframe contains both of each types features
+    """
     dummied_cat_features = pd.get_dummies(dataframe[cat_feats])
     encoded_df = pd.concat([dataframe[num_feats], dummied_cat_features], axis=1)
     return encoded_df
