@@ -1,6 +1,7 @@
 docs/build
 notebooks/.ipynb_checkpoints
 *.pyc
-.ipynb_checkpoints/*
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
 .idea/*
-
+*/.idea/*
