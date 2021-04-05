@@ -8,8 +8,13 @@ parser.add_argument('-i', type=str, nargs='+',
 
 args = parser.parse_args()
 
-model = model.train(args.i[0])
+print('Model training...')
+model_ = model.train(args.i[0])
+print('Successful!')
 
 pkl_filename = 'models/model.pkl'
 with open(pkl_filename, 'wb') as file:
-    pickle.dump(model, file)
+    pickle.dump(model_, file)
+print('Model saved in models/model.pkl')
+
+

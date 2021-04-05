@@ -1,0 +1,20 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }}</title>
+        {% else %}
+        <title>Welcome to Microblog!</title>
+        {% endif %}
+    </head>
+    <body>
+        <h2>Прогнозирование цен на недвижимость</h2>
+        <h3>Обучение модели</h3>
+        <form method ="post" action="/train">
+            <button type="submit" name="train" value="train"> Train </button>
+        </form>
+        <h3>Предсказание цены</h3>
+        <form method ="post" action="/predict">
+            <button type="submit" name="predict" value="predict"> Predict </button>
+        </form>
+    </body>
+</html>
