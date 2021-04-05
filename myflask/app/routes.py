@@ -6,18 +6,17 @@ import subprocess
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'username': 'Miguel'}
-    return render_template('index.html', title='Home Price Forecasting', user=user,
-                           content='<img src="static/jaq.jpg" alt="">')
+    user = {'username': 'Anton'}
+    return render_template('index.html', title='Home Price Forecasting', user=user)
 
-@app.route('/train', methods=['POST'])
+@app.route('/train')
 def train():
-    ps = subprocess.run(['python3', 'train.py'], capture_output=True)
+    ps = subprocess.run(['python3', '../train.py', '-i', '../data/clean_data.csv'], capture_output=True)
     return ps.stdout
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict')
 def predict():
-    ps = subprocess.run(['python', 'predict.py'], capture_output=True)
+    ps = subprocess.run(['python3', 'predict.py'], capture_output=True)
     return ps.stdout
 
 

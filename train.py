@@ -2,6 +2,7 @@ from mylib import model
 import argparse
 import pickle
 
+
 parser = argparse.ArgumentParser(description='Test model.')
 parser.add_argument('-i', type=str, nargs='+',
                     help='path to the input file with data')
