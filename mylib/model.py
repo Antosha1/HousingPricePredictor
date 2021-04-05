@@ -34,9 +34,10 @@ def data_preprocessing(data_path):
     X_train.loc[:, 'const'] = 1
     X_test.loc[:, 'const'] = 1
 
-    ss = StandardScaler()
-    X_train[num_features] = ss.fit_transform(X_train[num_features])
-    X_test[num_features] = ss.fit_transform(X_test[num_features])
+    ss_train = StandardScaler()
+    ss_test = StandardScaler()
+    X_train[num_features] = ss_train.fit_transform(X_train[num_features])
+    X_test[num_features] = ss_test.fit_transform(X_test[num_features])
 
     return X_train, y_train, X_test, y_test, lmbda
 

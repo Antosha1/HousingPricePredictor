@@ -1,5 +1,4 @@
 import pandas as pd
-import seaborn as sns
 
 
 def read_data(file_path):
