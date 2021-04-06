@@ -29,7 +29,7 @@ def test_train(path):
 
 
 @pytest.mark.parametrize('model_path, data_path', [('models/model.pkl', 'data/clean_data.csv')])
-def test_test(model_path, data_path):
+def test_predict(model_path, data_path):
     '''
     Check if function returns right shape prediction
     '''
