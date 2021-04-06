@@ -5,3 +5,17 @@ notebooks/.ipynb_checkpoints
 */.ipynb_checkpoints/*
 .idea/*
 */.idea/*
+*/venv/*
+venv/*
+*/build/*
+build/*
+.pytest_cache/*
+*/.pytest_cache/*
+dist/*
+*/dist/*
+mylib.egg-info/*
+*/mylib.egg-info/*
+.eggs/*
+*/.eggs/*
+.mutmut-cache
+

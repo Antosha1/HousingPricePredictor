@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-pd.options.display.max_columns = 90
+pd.options.display.max_columns = 91
 sns.set(rc={'figure.figsize': (11.7, 8.27)})
 
 
@@ -65,7 +65,9 @@ def split_features(dataframe):
     cat_feats = list(cat_df)
     float_df = dataframe.select_dtypes(include=['float64'])
     float_feats = list(float_df)
-    int_df = dataframe.select_dtypes(include=['int64']).drop(columns=['SalePrice'])
+    int_df = dataframe.select_dtypes(include=['int64'])
+    if 'SalePrice' in int_df.columns:
+        int_df = int_df.drop(columns=['SalePrice'])
     int_feats = list(int_df)
 
     return cat_feats, float_feats, int_feats
