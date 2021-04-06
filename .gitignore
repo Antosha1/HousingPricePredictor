@@ -7,3 +7,11 @@ notebooks/.ipynb_checkpoints
 */.idea/*
 */venv/*
 venv/*
+*/build/*
+build/*
+.pytest_cache/*
+*/.pytest_cache/*
+dist/*
+*/dist/*
+mylib.egg-info/*
+*/mylib.egg-info/*

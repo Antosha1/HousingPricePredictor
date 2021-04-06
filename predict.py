@@ -1,4 +1,4 @@
-from mylib.model import test
+from mylib.model import predict
 import argparse
 import pickle
 import numpy as np
@@ -17,6 +17,6 @@ if __name__ == '__main__':
     with open(args.m[0], 'rb') as file:
         model = pickle.load(file)
 
-    predictions = test(model, args.i[0])
+    predictions = predict(model, args.i[0])
 
     np.savetxt('models/test.txt', predictions, newline=' ')

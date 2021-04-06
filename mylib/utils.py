@@ -8,5 +8,5 @@ def read_data(file_path):
     :param file_path: a path to data
     :return: pandas-like dataframe contains data
     """
-    dataframe = pd.read_csv(file_path, sep='\t', index_col=0)
+    dataframe = pd.read_csv(file_path)
     return dataframe

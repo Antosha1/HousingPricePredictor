@@ -55,7 +55,7 @@ def train(data_path):
     return model
 
 
-def test(model, data_path):
+def predict(model, data_path):
     """
     Provide test of trained model
 
