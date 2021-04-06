@@ -8,7 +8,7 @@ def test_get_nan_features():
     '''
     Check if function returns correct dict
     '''
-    test_frame_int = pd.DataFrame([[6, np.nan, 6], [2, np.nan, np.nan], [2, np.nan, 5]],
+    test_frame_int = pd.DataFrame([[6, np.nan, 6], [3, np.nan, np.nan], [2, np.nan, 5]],
                                   columns=['ball', 'mug', 'pen'])
     test_nan_features_int = get_nan_features(test_frame_int)
 

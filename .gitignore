@@ -15,3 +15,6 @@ dist/*
 */dist/*
 mylib.egg-info/*
 */mylib.egg-info/*
+.eggs/*
+*/.eggs/*
+

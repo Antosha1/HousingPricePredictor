@@ -2,7 +2,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-pd.options.display.max_columns = 90
+pd.options.display.max_columns = 91
 sns.set(rc={'figure.figsize': (11.7, 8.27)})
 
 
