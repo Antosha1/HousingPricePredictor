@@ -17,4 +17,5 @@ mylib.egg-info/*
 */mylib.egg-info/*
 .eggs/*
 */.eggs/*
+.mutmut-cache
 
