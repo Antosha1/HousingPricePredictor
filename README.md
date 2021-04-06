@@ -41,6 +41,7 @@ Structure:
 |__ requirements.txt
 ```
 
+To interact with train and test processes you can connect to ```localhost:5000```.
 
 ## Commands
 
