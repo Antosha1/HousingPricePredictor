@@ -1,13 +1,17 @@
 ## Data
-Ames Housing Dataset: http://jse.amstat.org/v19n3/decock/AmesHousing.txt
+Ames Housing Dataset [paper](http://jse.amstat.org/v19n3/decock/AmesHousing.txt)
 
 
 ## Prerequisites
 
-To install project dependencies use:
+To set up your development environment use:
 ```
 pip install -r requirements.txt
 ```
+
+## Mylib
+
+[Documentation](https://se_ml_course.gitlab.io/2021/sotnikov.ad)
 
 To install mylib package use:
 ```
@@ -17,6 +21,24 @@ python setup.py install
 To test mylib package use:
 ```
 python -m pytest
+```
+
+
+## Docker
+
+Download latest image [here](https://gitlab.com/se_ml_course/2021/sotnikov.ad/container_registry/1842906)
+
+Structure:
+```
+|__ myflask
+    |__ app
+        |__ templates
+            |__ index.html
+        |__ __init__.py
+        |__ routes.py
+    |__ myflask.py
+|__ Dockerfile
+|__ requirements.txt
 ```
 
 
