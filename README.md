@@ -3,8 +3,20 @@ Ames Housing Dataset: http://jse.amstat.org/v19n3/decock/AmesHousing.txt
 
 
 ## Prerequisites
+
+To install project dependencies use:
 ```
 pip install -r requirements.txt
+```
+
+To install mylib package use:
+```
+python setup.py install
+```
+
+To test mylib package use:
+```
+python -m pytest
 ```
 
 
@@ -17,6 +29,7 @@ Script for training a model based on sklearn 'train' command.
 | Argument | Required | Description                                      |
 |:---------|:---------|--------------------------------------------------|
 | -i       | true     | path to input file with data                     |
+
 
 #### predict.py
 
@@ -35,7 +48,9 @@ The entire process of analyzing and cleaning data is described in this notebook:
 
 ## Results
 
-R^2 on test dataset: 0.918
+![alt text](notebooks/test_pairplot.png "Описание будет тут")
+
+R<sup>2</sup> on test dataset: 0.918
 
 MSE on test dataset (with box-cox transformation): 0.014
 
