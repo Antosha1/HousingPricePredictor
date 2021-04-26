@@ -48,7 +48,7 @@ test_b:
     - local
   script:
     - docker pull $CONTAINER_TEST_IMAGE
-    - docker run -v $(pwd):/content $CONTAINER_TEST_IMAGE pytest --cov=housinglib --cov-branch --cov-report term-missing test --junitxml=/content/report.xml
+    - docker run -v $(pwd):/content $CONTAINER_TEST_IMAGE pytest --cov=mylib --cov-branch --cov-report term-missing tests --junitxml=/content/report.xml
   artifacts:
     when: always
     reports:

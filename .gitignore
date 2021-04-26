@@ -18,4 +18,10 @@ mylib.egg-info/*
 .eggs/*
 */.eggs/*
 .mutmut-cache
+.hypothesis/*
+*/.hypothesis/*
+.coverage/*
+*/.coverage/*
+
+
 
