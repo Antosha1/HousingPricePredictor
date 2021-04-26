@@ -20,7 +20,6 @@ before_script:
   - docker info
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   - pip3 install -U sphinx
-  - pip3 install -U sphinx_rtd_theme
  
 build:
   stage: build
