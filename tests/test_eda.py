@@ -1,5 +1,5 @@
 import pytest
-from mylib.eda import get_nan_features, split_features, data_cleansing, encode_features
+from mylib.eda import get_nan_features, split_features, encode_features
 import pandas as pd
 import numpy as np
 
