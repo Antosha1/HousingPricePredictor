@@ -3,10 +3,7 @@ from hypothesis import given
 import hypothesis.strategies as st
 from hypothesis.extra.pandas import column, columns, data_frames
 
-from mylib.eda import get_nan_features, split_features, encode_features
-
-import pandas as pd
-import numpy as np
+from mylib.eda import get_nan_features, split_features
 
 
 def sublist(sublst, lst):
@@ -54,8 +51,3 @@ def test_split_features_hypo(frame):
     assert sublist(cat_feats, features)
     assert sublist(float_feats, features)
     assert sublist(int_feats, features)
-
-
-# @given()
-# def test_encode_features_hypo():
-#     pass
