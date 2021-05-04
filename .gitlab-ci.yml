@@ -10,8 +10,8 @@ stages:
 
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
-  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE/mylib_test_image:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE/mylib_release_image:latest
 
 before_script:
   - apk update
@@ -30,7 +30,7 @@ build:
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
 
-test_a:
+test_sphinx:
   stage: test
   tags:
     - local
@@ -41,7 +41,7 @@ test_a:
   except:
     - master
 
-test_b:
+test_pytest:
   stage: test
   tags: 
     - local
@@ -52,6 +52,19 @@ test_b:
     when: always
     reports:
       junit: report.xml
+
+test_makefile:
+  stage: test
+  tags:
+    - local
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE make clean
+    - docker run $CONTAINER_TEST_IMAGE make predict
+  only:
+    - develop
+  except:
+    - master
 
 pages:
   stage: deploy

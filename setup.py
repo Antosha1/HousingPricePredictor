@@ -7,7 +7,7 @@ install_requires = [
 ]
 
 tests_require = [
-      'pytest==6.2.3'
+      'pytest==6.2.3', 'pytest-cov==2.11.1', 'hypothesis==6.10.0', 'coverage==5.5'
     ]
 
 setup(name='mylib',
