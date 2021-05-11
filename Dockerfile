@@ -8,4 +8,4 @@ RUN pip3 install -r test_requirements.txt
 COPY . .
 RUN python3 setup.py install
 RUN apt-get update
-RUN apt-get install -y build-essentialg
+RUN apt-get install -y build-essential
