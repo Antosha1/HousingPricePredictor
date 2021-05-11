@@ -58,7 +58,7 @@ test_pytest:
     - local
   script:
     - docker pull $CONTAINER_TEST_IMAGE
-    - docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make test
+    - docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make tests
   artifacts:
     when: always
     reports:
