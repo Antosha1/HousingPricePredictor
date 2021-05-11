@@ -1,8 +1,7 @@
-.PHONY: help requirements sync_data_from_drive pull_data clean test_environment train predict tests
+.PHONY: help requirements pull_data clean test_environment train predict tests
 
 PROJECT_NAME = mylib
 PYTHON_INTERPRETER = python
-BUCKET = 1d6pQPfjvGHEV9veXBB_Clq1_mYLvmyJb
 
 include .env
 
@@ -12,9 +11,6 @@ requirements:
 	$(PYTHON_INTERPRETER) -m pip install -r test_requirements.txt
 	$(PYTHON_INTERPRETER) -m pip install dvc
 	$(PYTHON_INTERPRETER) -m pip install pydrive2
-
-sync_data_from_drive:
-	dvc remote add -d storage gdrive://$(BUCKET)
 
 pull_data:
 	dvc pull
@@ -26,7 +22,7 @@ clean:
 test_environment:
 	$(PYTHON_INTERPRETER) test_environment.py
 
-train: requirements sync_data_from_drive
+train: requirements pull_data
 	$(PYTHON_INTERPRETER) train.py \
         	--data_path ${PROCESSED_DATA} \
         	--log_path ${TRAIN_LOG_PATH} \
@@ -57,7 +53,6 @@ help:
 	echo "make requirements: install python dependencies"
 	echo "make test_environment: Test python environment is setup correctly"
 	echo "make clean: Delete all compiled Python files"
-	echo "make sync_data_from_drive: Download Data from Google-Drive using dvc"
 	echo "make pull_data: Pull all data from dvc storage"
 	echo "make train: Train the model on previously created dataset and save logs to Google-Drive"
 	echo "make predict: Predict using the trained model and save logs to Google-Drive"
