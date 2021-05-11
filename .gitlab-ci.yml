@@ -7,6 +7,7 @@ default:
     - apk add python3
     - apk add py3-pip
     - apk add make
+    - mkdir .dvc_files || true
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - base64 -d $seml_key > .dvc_files/seml-antosha1-1b90002c400c.json
