@@ -1,4 +1,4 @@
-.PHONY: help requirements sync_data_from_drive clean test_environment train predict tests
+.PHONY: help requirements sync_data_from_drive pull_data clean test_environment train predict tests
 
 PROJECT_NAME = mylib
 PYTHON_INTERPRETER = python
@@ -26,7 +26,7 @@ clean:
 test_environment:
 	$(PYTHON_INTERPRETER) test_environment.py
 
-train:
+train: requirements sync_data_from_drive
 	$(PYTHON_INTERPRETER) train.py \
         	--data_path ${PROCESSED_DATA} \
         	--log_path ${TRAIN_LOG_PATH} \
@@ -36,7 +36,7 @@ train:
 	dvc commit
 	dvc push
 
-predict:
+predict: train
 	$(PYTHON_INTERPRETER) predict.py \
         	--data_path ${PROCESSED_DATA} \
         	--model_path ${MODEL_PATH} \

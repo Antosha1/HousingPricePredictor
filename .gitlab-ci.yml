@@ -6,6 +6,7 @@ default:
     - apk update
     - apk add python3
     - apk add py3-pip
+    - apk add make
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - base64 -d $seml_key > .dvc_files/seml-antosha1-1b90002c400c.json
@@ -37,6 +38,7 @@ train_reg_model:
   tags:
     - local
   script: docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make train
+  retry: 1
 
 test_sphinx:
   stage: test
@@ -48,6 +50,7 @@ test_sphinx:
     - branches
   except:
     - master
+  retry: 1
 
 test_pytest:
   stage: test
@@ -60,6 +63,7 @@ test_pytest:
     when: always
     reports:
       junit: report.xml
+  retry: 1
 
 test_makefile:
   stage: test
@@ -73,6 +77,7 @@ test_makefile:
     - develop
   except:
     - master
+  retry: 1
 
 pages:
   stage: deploy
