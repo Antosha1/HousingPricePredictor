@@ -2,3 +2,5 @@
     remote = storage
 ['remote "storage"']
     url = gdrive://1d6pQPfjvGHEV9veXBB_Clq1_mYLvmyJb
+    gdrive_use_service_account = true
+    gdrive_service_account_json_file_path = ../.dvc_files/seml-antosha1-1b90002c400c.json
