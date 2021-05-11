@@ -22,6 +22,9 @@ mylib.egg-info/*
 */.hypothesis/*
 .coverage/*
 */.coverage/*
+.dvc/*
+.dvcignore
+
 
 
 

@@ -3,6 +3,9 @@ from mylib.eda import get_nan_features, split_features, encode_features
 import pandas as pd
 import numpy as np
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 def test_get_nan_features():
     '''
