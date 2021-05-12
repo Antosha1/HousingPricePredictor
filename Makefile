@@ -42,7 +42,7 @@ predict: train
 	dvc commit
 	dvc push
 
-tests:
+tests: requirements pull_data
 	pytest --cov=mylib --cov-branch \
  			--cov-report term-missing \
  			--cov-report xml:./results/coverage.xml \
