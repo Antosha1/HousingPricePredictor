@@ -7,17 +7,16 @@ default:
     - apk add python3
     - apk add py3-pip
     - apk add make
-    - pip3 install -r requirements.txt
     - mkdir .dvc_files || true
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - base64 -d $SEML_KEY > antosha_cool.json
-    - dvc remote modify storage gdrive_service_account_json_file_path antosha_cool.json
+    - base64 -d $SEML_KEY > .dvc_files/dvc_service_key.json
+    - dvc remote modify storage gdrive_service_account_json_file_path .dvc_files/dvc_service_key.json
     - pip3 install -U sphinx
 
 stages:
-  - test
   - build
+  - test
   - train
   - release
   - deploy
@@ -41,7 +40,7 @@ train_reg_model:
   tags:
     - local
   script:
-    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker pull $CONTAINER_TEST_IMAGE
     - docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make train
 
 test_sphinx:
@@ -73,12 +72,7 @@ test_makefile:
     - local
   script:
     - docker pull $CONTAINER_TEST_IMAGE
-    - docker run $CONTAINER_TEST_IMAGE make clean
     - docker run $CONTAINER_TEST_IMAGE make predict
-  only:
-    - develop
-  except:
-    - master
 
 pages:
   stage: deploy

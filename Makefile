@@ -11,6 +11,7 @@ requirements:
 	$(PYTHON_INTERPRETER) -m pip install -r test_requirements.txt
 	$(PYTHON_INTERPRETER) -m pip install dvc
 	$(PYTHON_INTERPRETER) -m pip install pydrive2
+	dvc remote modify storage gdrive_service_account_json_file_path .dvc_files/dvc_service_key.json
 
 pull_data:
 	dvc pull
@@ -24,9 +25,9 @@ test_environment:
 
 train: requirements pull_data
 	$(PYTHON_INTERPRETER) train.py \
-        	--data_path ${PROCESSED_DATA} \
-        	--log_path ${TRAIN_LOG_PATH} \
-        	--model_path ${MODEL_PATH}
+		--data_path ${PROCESSED_DATA} \
+		--log_path ${TRAIN_LOG_PATH} \
+		--model_path ${MODEL_PATH}
 	dvc add -R ${MODEL_PATH}
 	dvc add -R ${TRAIN_LOG_PATH}
 	dvc commit
@@ -34,19 +35,19 @@ train: requirements pull_data
 
 predict: train
 	$(PYTHON_INTERPRETER) predict.py \
-        	--data_path ${PROCESSED_DATA} \
-        	--model_path ${MODEL_PATH} \
-        	--log_path ${PREDICT_LOG_PATH} \
-        	--results_path ${RESULTS_PATH}
+		--data_path ${PROCESSED_DATA} \
+		--model_path ${MODEL_PATH} \
+		--log_path ${PREDICT_LOG_PATH} \
+		--results_path ${RESULTS_PATH}
 	dvc add -R ${PREDICT_LOG_PATH}
 	dvc commit
 	dvc push
 
 tests: requirements pull_data
 	pytest --cov=mylib --cov-branch \
- 			--cov-report term-missing \
- 			--cov-report xml:./results/coverage.xml \
- 			--junitxml=./results/report.xml tests
+		--cov-report term-missing \
+		--cov-report xml:./.dvc_files/coverage.xml \
+		--junitxml=./.dvc_files/report.xml tests
 
 .DEFAULT: help
 help:

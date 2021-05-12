@@ -25,3 +25,5 @@ mylib.egg-info/*
 .dvc/*
 .dvcignore
 .dvc_files/*
+*/.dvc_files/*
+.dvc_files
