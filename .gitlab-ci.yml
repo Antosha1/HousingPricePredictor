@@ -7,15 +7,17 @@ default:
     - apk add python3
     - apk add py3-pip
     - apk add make
+    - apk add dvc
     - mkdir .dvc_files || true
     - docker info
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - base64 -d $seml_key > .dvc_files/seml-antosha1-1b90002c400c.json
+    - base64 -d $SEML_KEY > antosha_cool.json
+    - dvc remote modify storage gdrive_service_account_json_file_path antosha_cool.json
     - pip3 install -U sphinx
 
 stages:
-  - build
   - test
+  - build
   - train
   - release
   - deploy
