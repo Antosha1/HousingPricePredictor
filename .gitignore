@@ -24,7 +24,4 @@ mylib.egg-info/*
 */.coverage/*
 .dvc/*
 .dvcignore
-
-
-
-
+.dvc_files/*
