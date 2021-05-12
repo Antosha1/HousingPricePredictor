@@ -39,7 +39,6 @@ train_reg_model:
   tags:
     - local
   script: docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make train
-  retry: 1
 
 test_sphinx:
   stage: test
@@ -51,7 +50,6 @@ test_sphinx:
     - branches
   except:
     - master
-  retry: 1
 
 test_pytest:
   stage: test
@@ -64,7 +62,6 @@ test_pytest:
     when: always
     reports:
       junit: report.xml
-  retry: 1
 
 test_makefile:
   stage: test
@@ -78,7 +75,6 @@ test_makefile:
     - develop
   except:
     - master
-  retry: 1
 
 pages:
   stage: deploy
