@@ -13,12 +13,12 @@ default:
     - base64 -d $seml_key > .dvc_files/seml-antosha1-1b90002c400c.json
     - pip3 install -U sphinx
 
-stages: 
+stages:
+  - train
   - build
   - test
   - release
   - deploy
-  - train
 
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
