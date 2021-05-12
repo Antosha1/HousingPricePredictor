@@ -14,9 +14,9 @@ default:
     - pip3 install -U sphinx
 
 stages:
-  - train
   - build
   - test
+  - train
   - release
   - deploy
 
