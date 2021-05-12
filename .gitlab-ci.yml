@@ -1,22 +1,98 @@
-image: python:3.7-alpine
+default:
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  before_script:
+    - apk update
+    - apk add python3
+    - apk add py3-pip
+    - apk add make
+    - mkdir .dvc_files || true
+    - docker info
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - base64 -d $SEML_KEY > .dvc_files/dvc_service_key.json
+    - pip3 install -U sphinx
 
-test:
-  stage: test
+stages:
+  - build
+  - test
+  - train
+  - release
+  - deploy
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE/mylib_test_image:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE/mylib_release_image:latest
+ 
+build:
+  stage: build
+  tags: 
+    - local
   script:
-  - pip install -U sphinx
-  - sphinx-build -b html ./docs/source ./public
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CONTAINER_TEST_IMAGE .
+    - docker push $CONTAINER_TEST_IMAGE
+
+train_reg_model:
+  stage: train
+  tags:
+    - local
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make train
+
+test_sphinx:
+  stage: test
+  tags:
+    - local
+  script:
+    - sphinx-build -b html ./docs/source ./public
   only:
-  - branches
+    - branches
   except:
-  - master
+    - master
+
+test_pytest:
+  stage: test
+  tags: 
+    - local
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run -v $(pwd)/.dvc_files:/app/.dvc_files $CONTAINER_TEST_IMAGE make tests
+  artifacts:
+    when: always
+    reports:
+      junit: .dvc_files/report.xml
+      cobertura: .dvc_files/coverage.xml
+
+test_makefile:
+  stage: test
+  tags:
+    - local
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE make predict
 
 pages:
   stage: deploy
+  tags:
+    - local
   script:
-  - pip install -U sphinx
-  - sphinx-build -b html ./docs/source ./public
+    - sphinx-build -b html ./docs/source ./public
   artifacts:
     paths:
-    - public
+      - public
   only:
-  - master
+    - master
+
+release-image:
+  stage: release
+  tags:
+    - local
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - master

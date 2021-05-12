@@ -2,6 +2,9 @@ import pytest
 from mylib.model import data_preprocessing, train, predict
 import pickle
 
+import warnings
+warnings.filterwarnings('ignore')
+
 
 @pytest.mark.parametrize('path', ['data/clean_data.csv'])
 def test_data_preprocessing(path):

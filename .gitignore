@@ -18,4 +18,12 @@ mylib.egg-info/*
 .eggs/*
 */.eggs/*
 .mutmut-cache
-
+.hypothesis/*
+*/.hypothesis/*
+.coverage/*
+*/.coverage/*
+.dvc/*
+.dvcignore
+.dvc_files/*
+*/.dvc_files/*
+.dvc_files
