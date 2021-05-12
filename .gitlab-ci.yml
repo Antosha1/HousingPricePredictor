@@ -63,8 +63,8 @@ test_pytest:
   artifacts:
     when: always
     reports:
-      junit: report.xml
-      cobertura: coverage.xml
+      junit: .dvc_files/report.xml
+      cobertura: .dvc_files/coverage.xml
 
 test_makefile:
   stage: test
