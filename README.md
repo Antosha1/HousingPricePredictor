@@ -20,7 +20,7 @@ python setup.py install
 
 To test mylib package use:
 ```
-python -m pytest
+make tests
 ```
 
 
@@ -49,19 +49,23 @@ To interact with train and test processes you can connect to ```localhost:5000``
 
 Script for training a model based on sklearn 'train' command.
 
-| Argument | Required | Description                                      |
-|:---------|:---------|--------------------------------------------------|
-| -i       | true     | path to input file with data                     |
+| Argument      | Required | Description                                      |
+|:--------------|:---------|--------------------------------------------------|
+| --data_path   | true     | path to input file with data                     |
+| --log_path    | true     | path to the folder with logs                     |
+| --model_path  | true     | path to folder with trained models               |
 
 
 #### predict.py
 
 Script for model evaluation. The test dataset should have the same format as the train dataset.
 
-| Argument | Required | Description                                      |
-|:---------|:---------|--------------------------------------------------|
-| -i       | true     | path to input file with data                     |
-| -m       | true     | path to .pkl serialized model                    |
+| Argument       | Required | Description                                      |
+|:---------------|:---------|--------------------------------------------------|
+| --data_path    | true     | path to input file with data                     |
+| --log_path     | true     | path to the folder with logs                     |
+| --model_path   | true     | path to folder with trained models               |
+| --results_path | true     | path to folder with predictions                  |
 
 
 ## EDA & Cleansing
