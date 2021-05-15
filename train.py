@@ -37,7 +37,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_path', type=str, default='data/clean_data.csv',
                         help='path to the input file with data')
     parser.add_argument('--log_path', type=str, default='logs/train/',
-                        help='path to the input file with data')
+                        help='path to the folder with logs')
     parser.add_argument('--model_path', type=str, default='models/',
                         help='path to folder with trained models')
     args = parser.parse_args()
